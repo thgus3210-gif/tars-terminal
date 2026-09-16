@@ -1,0 +1,27 @@
+# Render Blueprint. Push this repo, then in Render: New > Blueprint, pick the repo.
+services:
+  - type: web
+    name: tars-terminal
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: starter
+    healthCheckPath: /login
+    envVars:
+      - key: SESSION_SECRET
+        generateValue: true          # Render generates a strong secret
+      - key: SESSION_SECURE
+        value: "1"                    # HTTPS in prod
+      - key: ALLOWED_ORIGINS
+        sync: false                   # set to https://<your-app>.onrender.com
+      - key: QUOTE_PROVIDER
+        value: "sample"               # switch to "fmp" once FMP_API_KEY is set
+      - key: FMP_API_KEY
+        sync: false                   # paste in dashboard (leave blank for sample)
+      - key: PIPELINE_PROVIDER
+        value: "clinicaltrials"
+      - key: HTTP_UA
+        value: "TARS-Terminal/1.0 (research)"
+    disk:
+      name: data
+      mountPath: /app/tars           # persist tars.db + universe_cache.json
+      sizeGB: 1
