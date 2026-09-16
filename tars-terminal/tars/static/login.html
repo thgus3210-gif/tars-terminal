@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TARS TERMINAL · 로그인</title>
+<link rel="stylesheet" href="/static/login.css">
+</head>
+<body>
+<main>
+  <div class="brand">TARS <span>TERMINAL</span></div>
+  <p class="eyebrow">MEMBER ACCESS · US PHARMA &amp; BIOTECH</p>
+  <h1>빅파마·바이오텍만 보는<br>나만의 리서치 터미널</h1>
+  <p class="intro">미국 상장 제약/바이오 종목에 집중된 터미널입니다.<br>관심종목과 기업 노트는 계정별로 관리됩니다.</p>
+  <div class="switch">
+    <button id="signin" aria-pressed="true">로그인</button>
+    <button id="signup" aria-pressed="false">회원가입</button>
+  </div>
+  <form id="auth" novalidate>
+    <label>아이디
+      <input name="username" autocomplete="username" required minlength="3" maxlength="24"
+             pattern="[a-zA-Z0-9_]{3,24}" placeholder="영문·숫자·밑줄 3~24자">
+    </label>
+    <label>비밀번호
+      <input name="password" type="password" autocomplete="current-password" required
+             minlength="4" maxlength="128">
+    </label>
+    <label id="confirm-label" hidden>비밀번호 확인
+      <input name="confirm" type="password" autocomplete="new-password" maxlength="128">
+    </label>
+    <p id="error" role="status"></p>
+    <button type="submit" id="submit">로그인하고 시작하기</button>
+  </form>
+  <p class="foot">본 도구는 리서치 보조용입니다. 투자 자문이 아니며, 데이터는 지연될 수 있습니다.</p>
+</main>
+<script src="/static/login.js?v=1"></script>
+</body>
+</html>

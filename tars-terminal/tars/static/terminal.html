@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TARS TERMINAL</title>
+<link rel="stylesheet" href="/static/terminal.css">
+</head>
+<body>
+<header>
+  <div class="brand">TARS <span>TERMINAL</span></div>
+  <div class="tag">US PHARMA &amp; BIOTECH</div>
+  <div class="spacer"></div>
+  <span id="who" class="who"></span>
+  <button id="logout" class="ghost">로그아웃</button>
+</header>
+
+<main>
+  <!-- left: watchlist + universe -->
+  <aside class="col left">
+    <section class="panel">
+      <h2>관심종목</h2>
+      <div id="watchlist" class="watchlist"><p class="muted">불러오는 중…</p></div>
+    </section>
+    <section class="panel">
+      <h2>종목 <span class="muted" id="universe-count"></span></h2>
+      <input id="search" placeholder="티커 또는 회사명 검색" autocomplete="off">
+      <div class="tier-filter">
+        <button data-tier="" aria-pressed="true">전체</button>
+        <button data-tier="big_pharma" aria-pressed="false">Big Pharma</button>
+        <button data-tier="biotech" aria-pressed="false">Biotech</button>
+      </div>
+      <div id="company-list" class="company-list"></div>
+    </section>
+  </aside>
+
+  <!-- right: detail -->
+  <section class="col right">
+    <div id="detail" class="detail empty">
+      <p class="muted">왼쪽에서 종목을 선택하면 상세 정보가 표시됩니다.</p>
+    </div>
+  </section>
+</main>
+
+<template id="tpl-detail">
+  <div class="detail-head">
+    <div>
+      <h1 class="d-name"></h1>
+      <div class="d-sub"><span class="d-ticker mono"></span> · <span class="d-tier"></span> · <span class="d-exch"></span></div>
+    </div>
+    <div class="d-quote">
+      <div class="d-price mono"></div>
+      <div class="d-change mono"></div>
+      <div class="d-stale muted"></div>
+    </div>
+    <button class="d-watch"></button>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h3>재무 (요약)</h3>
+      <table class="kv"><tbody class="d-fin"></tbody></table>
+    </div>
+    <div class="card">
+      <h3>기업 개요</h3>
+      <p class="d-desc muted"></p>
+      <p class="d-web muted"></p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>파이프라인</h3>
+    <table class="pipeline">
+      <thead><tr><th>Asset</th><th>Indication</th><th>Phase</th><th>Modality</th><th>Status</th><th>Updated</th></tr></thead>
+      <tbody class="d-pipe"></tbody>
+    </table>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h3>노트 <span class="muted d-note-saved"></span></h3>
+      <textarea class="d-note" placeholder="이 기업에 대한 리서치 메모… (계정별 저장, 자동 저장)"></textarea>
+    </div>
+    <div class="card">
+      <h3>뉴스</h3>
+      <ul class="news d-news"></ul>
+    </div>
+  </div>
+</template>
+
+<script src="/static/terminal.js?v=1"></script>
+</body>
+</html>
