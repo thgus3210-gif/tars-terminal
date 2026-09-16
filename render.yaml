@@ -1,18 +1,26 @@
-# Render Blueprint. Push this repo, then in Render: New > Blueprint, pick the repo.
+# Render Blueprint — FREE tier (no persistent disk).
+# Push this repo, then in Render: New > Blueprint, pick the repo, Apply.
+#
+# Free-tier notes:
+#  * No disk: the SQLite DB (accounts/watchlist/notes) resets whenever the
+#    service redeploys or wakes from sleep. Fine for testing; upgrade to a
+#    paid plan + disk to persist. See render.paid.yaml for that version.
+#  * Free web services sleep after ~15 min idle; the first request after
+#    sleeping takes ~30-60s to wake.
 services:
   - type: web
     name: tars-terminal
     runtime: docker
     dockerfilePath: ./Dockerfile
-    plan: starter
+    plan: free
     healthCheckPath: /login
     envVars:
       - key: SESSION_SECRET
         generateValue: true          # Render generates a strong secret
       - key: SESSION_SECURE
-        value: "1"                    # HTTPS in prod
+        value: "1"                    # HTTPS on onrender.com
       - key: ALLOWED_ORIGINS
-        sync: false                   # set to https://<your-app>.onrender.com
+        sync: false                   # set to https://<your-app>.onrender.com after 1st deploy
       - key: QUOTE_PROVIDER
         value: "sample"               # switch to "fmp" once FMP_API_KEY is set
       - key: FMP_API_KEY
@@ -21,7 +29,3 @@ services:
         value: "clinicaltrials"
       - key: HTTP_UA
         value: "TARS-Terminal/1.0 (research)"
-    disk:
-      name: data
-      mountPath: /app/tars           # persist tars.db + universe_cache.json
-      sizeGB: 1
